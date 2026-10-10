@@ -20,7 +20,12 @@ export async function getPosts(): Promise<Post[]> {
   if (!MEDIUM_USERNAME) return [];
   try {
     const res = await fetch(`https://medium.com/feed/@${MEDIUM_USERNAME.replace(/^@/, "")}`, {
-      next: { revalidate: 3600 },
+      headers: {
+        // Medium bazı sunucu isteklerini User-Agent'sız reddedebiliyor
+        "User-Agent": "Mozilla/5.0 (compatible; PortfolioBot/1.0; +https://github.com/Oguzhan61-dilmac)",
+        Accept: "application/rss+xml, application/xml, text/xml, */*",
+      },
+      next: { revalidate: 900 },
     });
     if (!res.ok) return [];
     const xml = await res.text();

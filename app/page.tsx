@@ -11,7 +11,7 @@ import { getPosts } from "@/lib/medium";
 import { MEDIUM_USERNAME } from "@/lib/content";
 
 // Projeler GitHub'dan sunucuda çekilir; sayfa saatte bir yeniden üretilir (ISR).
-export const revalidate = 3600;
+export const revalidate = 900;
 
 export default async function Home() {
   const [{ projects, source }, posts] = await Promise.all([getProjects(), getPosts()]);
