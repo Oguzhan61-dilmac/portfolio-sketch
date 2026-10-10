@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@source "../components";
+@source "../lib";
+
+@theme {
+  --color-paper: #fdfbf7;
+  --color-paper-dark: #f4efe4;
+  --color-graphite: #1a1a1a;
+  --color-charcoal: #2b2b2b;
+  --color-smudge: #6b6760;
+  --color-faint: #d9d3c6;
+  --color-margin: #c85a4a;
+  --color-highlighter: #f6e27a;
+
+  --font-hand: "Caveat", "Kalam", cursive;
+  --font-marker: "Kalam", "Caveat", cursive;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-graphite);
+    font-family: var(--font-body);
+    /* kâğıt lifi dokusu + çok soluk kareli defter ızgarası */
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .09 0 0 0 0 .08 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      linear-gradient(to right, rgb(26 26 26 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(26 26 26 / 0.035) 1px, transparent 1px);
+    background-size: 220px 220px, 28px 28px, 28px 28px;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-highlighter);
+    color: var(--color-graphite);
+  }
+  :focus-visible {
+    outline: 2px dashed var(--color-graphite);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Defter yaprağı: yatay çizgiler + kırmızı kenar boşluğu çizgisi */
+  .notebook-page {
+    background-color: #fffdf8;
+    background-image:
+      linear-gradient(to right, transparent 46px, rgb(200 90 74 / 0.55) 46px, rgb(200 90 74 / 0.55) 47.5px, transparent 47.5px),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgb(64 104 160 / 0.16) 31px, rgb(64 104 160 / 0.16) 32px);
+  }
+
+  /* Kurşun kalem tonu: hafif grenli metin */
+  .pencil-text {
+    color: var(--color-graphite);
+    text-shadow:
+      0.4px 0.3px 0 rgb(26 26 26 / 0.35),
+      -0.3px 0.2px 0 rgb(26 26 26 / 0.2);
+  }
+
+  /* Fosforlu kalem altı çizgisi */
+  .highlight {
+    background: linear-gradient(
+      100deg,
+      transparent 0.4em,
+      rgb(246 226 122 / 0.75) 0.55em,
+      rgb(246 226 122 / 0.6) calc(100% - 0.5em),
+      transparent calc(100% - 0.3em)
+    );
+    background-size: 100% 0.55em;
+    background-position: 0 88%;
+    background-repeat: no-repeat;
+    padding: 0 0.15em;
+  }
+
+  /* Bant (washi tape) */
+  .tape {
+    background: rgb(220 212 190 / 0.72);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+    clip-path: polygon(3% 0, 97% 4%, 100% 50%, 97% 96%, 2% 100%, 0 52%);
+  }
+
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1.5px dashed rgb(43 43 43 / 0.45);
+    padding: 0.55rem 0.25rem;
+    font-family: var(--font-marker);
+    font-size: 1.15rem;
+    color: var(--color-graphite);
+    transition: border-color 0.2s;
+  }
+  .field::placeholder {
+    color: rgb(107 103 96 / 0.6);
+  }
+  .field:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-graphite);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
