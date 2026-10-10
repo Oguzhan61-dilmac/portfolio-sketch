@@ -6,7 +6,19 @@ export const GITHUB_USER = "Oguzhan61-dilmac";
  * Pasif projeler — isim karşılaştırması büyük/küçük harf ve noktalama
  * bağımsızdır: "ALGO.SYS", "algo-sys", "AlgoSys" hepsi elenir.
  */
-const EXCLUDED = ["dijifizyo", "algosys"];
+// Sitede GÖSTERİLMEYECEK repolar (büyük/küçük harf ve tire/alt çizgi fark etmez).
+// Yeni birini gizlemek için buraya adını ekle.
+const EXCLUDED = [
+  "dijifizyo",
+  "algosys",
+  "veri-bilimi-notlari",
+  "makine-ogrenmesi-notlari",
+  "antipark-app",
+  "python-egitim-notlari",
+  "Solaris-One-tan-t-m-Web",
+  "nereye-gidilir",
+  "web-gelistirme-notlari",
+].map((n) => n.toLowerCase().replace(/[^a-z0-9]/g, ""));
 
 export type Project = {
   id: number;
