@@ -19,6 +19,7 @@ const EXCLUDED = [
   "nereye-gidilir",
   "web-gelistirme-notlari",
   "portfolio-sketch",
+  "Oguzhan61-dilmac.github.io",
 ].map((n) => n.toLowerCase().replace(/[^a-z0-9]/g, ""));
 
 export type Project = {
