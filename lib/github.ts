@@ -18,6 +18,7 @@ const EXCLUDED = [
   "Solaris-One-tan-t-m-Web",
   "nereye-gidilir",
   "web-gelistirme-notlari",
+  "portfolio-sketch",
 ].map((n) => n.toLowerCase().replace(/[^a-z0-9]/g, ""));
 
 export type Project = {
