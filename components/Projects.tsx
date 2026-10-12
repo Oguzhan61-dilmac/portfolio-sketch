@@ -154,10 +154,12 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
 
         <div className="relative z-10 mt-6 flex items-center justify-between border-t border-dashed border-charcoal/25 pt-4 font-marker text-base">
           <div className="flex items-center gap-4 text-charcoal">
-            <span className="inline-flex items-center gap-1" title="Yıldız">
-              <Star className="h-4 w-4" strokeWidth={1.7} fill={p.stars > 0 ? "currentColor" : "none"} />
-              {p.stars}
-            </span>
+            {!p.hideStars && (
+              <span className="inline-flex items-center gap-1" title="Yıldız">
+                <Star className="h-4 w-4" strokeWidth={1.7} fill={p.stars > 0 ? "currentColor" : "none"} />
+                {p.stars}
+              </span>
+            )}
             {p.forks > 0 && (
               <span className="inline-flex items-center gap-1" title="Fork">
                 <GitFork className="h-4 w-4" strokeWidth={1.7} />
@@ -172,7 +174,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
               </a>
             )}
             <a href={p.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 underline decoration-dashed underline-offset-4 hover:decoration-solid">
-              GitHub →
+              {p.linkLabel ?? "GitHub"} →
             </a>
           </div>
         </div>

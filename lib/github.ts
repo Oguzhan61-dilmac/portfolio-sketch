@@ -34,6 +34,9 @@ export type Project = {
   language: string | null;
   tech: string[];
   updatedAt: string;
+  /** GitHub dışı projeler için: bağlantı etiketi (varsayılan "GitHub") ve yıldız sayacını gizleme */
+  linkLabel?: string;
+  hideStars?: boolean;
 };
 
 export type ProjectsResult = {
@@ -66,7 +69,17 @@ const BERBER: Project = {
   url: `https://github.com/${GITHUB_USER}/berber-randevu-sistemi`, homepage: "https://berberotomasyon.vercel.app",
   stars: 0, forks: 0, language: null, tech: [], updatedAt: "2026-06-15",
 };
-const MANUAL: Project[] = [BERBER];
+/**
+ * Mood Blocks — Google Play'de yayında olan blok bulmaca oyunu (GitHub'da gösterilen bir repo değil).
+ */
+const MOOD_BLOCKS: Project = {
+  id: 12, name: "mood-blocks", title: "Mood Blocks",
+  description: "Google Play'de yayında olan blok bulmaca oyunu. Tasarımından yayına kadar kendi geliştirdiğim mobil oyun projem.",
+  url: "https://play.google.com/store/apps/details?id=com.moodblocks.game", homepage: null,
+  stars: 0, forks: 0, language: null, tech: ["Mobil Oyun", "Google Play"], updatedAt: "2026-10-12",
+  linkLabel: "Google Play", hideStars: true,
+};
+const MANUAL: Project[] = [BERBER, MOOD_BLOCKS];
 
 const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 
@@ -174,7 +187,7 @@ export async function getProjects(): Promise<ProjectsResult> {
     return { projects, source: "live" };
   } catch (err) {
     console.warn("[github] canlı veri alınamadı, yedek liste kullanılıyor:", err);
-    return { projects: FALLBACK.filter((p) => !isExcluded(p.name)), source: "fallback" };
+    return { projects: [...FALLBACK, MOOD_BLOCKS].filter((p) => !isExcluded(p.name)), source: "fallback" };
   }
 }
 
